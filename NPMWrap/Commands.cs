@@ -49,6 +49,38 @@ namespace NPMWrap
             }
         }
 
+        public static void RunBaseUpgrade(Config Configuration)
+        {
+            if (Configuration.Directory == null)
+            {
+                throw new Exception("NPMWrap: Configuration invalid, Directory was null.")
+                {
+                    HResult = 0, // Temp
+                    HelpLink = string.Empty // Temp
+                };
+            }
+
+            Process process = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = Configuration.UseYarn ? "yarn" : "npm",
+                    Arguments = Configuration.UseYarn ? "" : "upgrade",
+                    CreateNoWindow = !Configuration.IsDebug,
+                    WindowStyle = Configuration.IsDebug ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
+                    WorkingDirectory = Configuration.Directory,
+                    UseShellExecute = true
+                }
+            };
+
+            process.Start();
+
+            if (Configuration.WaitForExit)
+            {
+                process.WaitForExit();
+            }
+        }
+
         public static void RunInstall(string PackageName, Config Configuration)
         {
             if (Configuration.Directory == null)
