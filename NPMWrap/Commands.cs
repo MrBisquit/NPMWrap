@@ -81,7 +81,7 @@ namespace NPMWrap
             }
         }
 
-        public static void RunInstall(string PackageName, Config Configuration)
+        public static void RunInstall(string PackageName, Config Configuration, bool Global = false)
         {
             if (Configuration.Directory == null)
             {
@@ -97,7 +97,7 @@ namespace NPMWrap
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = Configuration.UseYarn ? "yarn" : "npm",
-                    Arguments = Configuration.UseYarn ? $"add {PackageName}" : $"install {PackageName}",
+                    Arguments = Configuration.UseYarn ? $"add {PackageName}{(Global ? "-g" : "")}" : $"install {PackageName}{(Global ? "-g" : "")}",
                     CreateNoWindow = !Configuration.IsDebug,
                     WindowStyle = Configuration.IsDebug ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
                     WorkingDirectory = Configuration.Directory,
@@ -113,7 +113,7 @@ namespace NPMWrap
             }
         }
 
-        public static void RunInstall(string PackageName, string PackageVersion, Config Configuration)
+        public static void RunInstall(string PackageName, string PackageVersion, Config Configuration, bool Global = false)
         {
             if (Configuration.Directory == null)
             {
@@ -129,7 +129,7 @@ namespace NPMWrap
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = Configuration.UseYarn ? "yarn" : "npm",
-                    Arguments = Configuration.UseYarn ? $"add {PackageName}@{PackageVersion}" : $"install {PackageName}@{PackageVersion}",
+                    Arguments = Configuration.UseYarn ? $"add {PackageName}@{PackageVersion}{(Global ? "-g" : "")}" : $"install {PackageName}@{PackageVersion}{(Global ? "-g" : "")}",
                     CreateNoWindow = !Configuration.IsDebug,
                     WindowStyle = Configuration.IsDebug ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
                     WorkingDirectory = Configuration.Directory,
@@ -145,7 +145,7 @@ namespace NPMWrap
             }
         }
 
-        public static void RunUninstall(string PackageName, Config Configuration)
+        public static void RunUninstall(string PackageName, Config Configuration, bool Global = false)
         {
             if (Configuration.Directory == null)
             {
@@ -161,7 +161,7 @@ namespace NPMWrap
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = Configuration.UseYarn ? "yarn" : "npm",
-                    Arguments = Configuration.UseYarn ? $"remove {PackageName}" : $"uninstall {PackageName}",
+                    Arguments = Configuration.UseYarn ? $"remove {PackageName}{(Global ? "-g" : "")}" : $"uninstall {PackageName}{(Global ? "-g" : "")}",
                     CreateNoWindow = !Configuration.IsDebug,
                     WindowStyle = Configuration.IsDebug ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden,
                     WorkingDirectory = Configuration.Directory,

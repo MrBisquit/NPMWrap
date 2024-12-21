@@ -16,7 +16,7 @@ namespace NPMWrap
             public string UserAgent { get; set; } = "NPMWrap NPM API Client for C#";
         }
 
-        public static async Task<SearchResult> SearchPackagesAsync(string SearchTerm, Config Configuration)
+        public static async Task<SearchResult> SearchPackages(string SearchTerm, Config Configuration)
         {
             using (HttpClient client = new HttpClient())
             {
